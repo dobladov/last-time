@@ -1,0 +1,26 @@
+{
+    "name": "Last Time",
+    "short_name": "Last Time",
+    "developer": {
+        "name": "Daniel Doblado",
+        "url": "https://github.com/dobladov/last-time"
+    },
+    "start_url": ".",
+    "description": "Track the last time you did somethign",
+    "lang": "en-US",
+    "icons": [
+        {
+            "src": "/assets/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/icons/android-chrome-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#00FA9A",
+    "background_color": "#00FA9A",
+    "display": "standalone"
+}
