@@ -1,6 +1,6 @@
-workflow "New workflow" {
+workflow "deploy on push" {
   on = "push"
-  resolves = ["Deploy to GitHub Pages"]
+  resolves = ["deploy"]
 }
 
 action "master branch only" {
@@ -8,12 +8,14 @@ action "master branch only" {
   args = "branch master"
 }
 
-action "Deploy to gh-pages" {
-  uses = "JamesIves/github-pages-deploy-action@master" 
-  env = {
-    BRANCH = "gh-pages"
-    BUILD_SCRIPT = "npm install && parcel build src/index.html --public-url /last-time/"
-    FOLDER = "dist"
-  }
-  needs = ["master branch only"]
+action "install" {
+  uses = "actions/npm@master"
+  args = "install"
+}
+
+action "deploy" {
+  uses = "actions/npm@master"
+  needs = ["master branch only", "install"]
+  args = "run-script deploy"
+  secrets = ["GITHUB_TOKEN"]
 }
