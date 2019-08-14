@@ -7,7 +7,7 @@
     "test": "eslint src",
     "start": "parcel --host 0.0.0.0 src/index.html",
     "build": "parcel build src/index.html",
-    "deploy": "parcel build --public-url '/last-lime' src/index && gh-pages -d public -u \"Github Actions danieldoblado@gmail.com\""
+    "deploy": "parcel build --public-url '/last-lime' src/index.html && gh-pages -d public -u \"Github Actions danieldoblado@gmail.com\""
   },
   "keywords": [],
   "author": "",
