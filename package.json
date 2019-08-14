@@ -7,7 +7,7 @@
     "test": "eslint src",
     "start": "parcel --host 0.0.0.0 src/index.html",
     "build": "parcel build src/index.html",
-    "deploy": "parcel build --public-url '/last-lime' src/index.html && gh-pages -d dist -u \"Daniel Doblado <danieldoblado@gmail.com>\""
+    "deploy": "parcel build --public-url '/last-lime' src/index.html && gh-pages -d dist -u \"Daniel Doblado <danieldoblado@gmail.com>\" -r https://github.com/dobladov/last-time.git"
   },
   "keywords": [],
   "author": "",
