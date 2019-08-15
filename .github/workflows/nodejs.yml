@@ -19,5 +19,5 @@ jobs:
         npm test
         git config user.email "danieldoblado@gmail.com"
         git config user.name "Daniel Doblado"
-        parcel build --public-url '/last-lime' src/index.html && gh-pages -d dist 
+        parcel build --public-url '/last-lime' src/index.html && ./node_modules/.bin/gh-pages -d dist 
         
