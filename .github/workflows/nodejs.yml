@@ -16,5 +16,8 @@ jobs:
     - name: npm install, deploy, and test
       run: |
         npm install
-        npm run deploy
         npm test
+        git config user.email "danieldoblado@gmail.com"
+        git config user.name "Daniel Doblado"
+        parcel build --public-url '/last-lime' src/index.html && gh-pages -d dist 
+        
