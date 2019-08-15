@@ -19,5 +19,6 @@ jobs:
         npm test
         git config user.email "danieldoblado@gmail.com"
         git config user.name "Daniel Doblado"
+        git remote add origin https://github.com/dobladov/last-time.git
         parcel build --public-url '/last-lime' src/index.html && ./node_modules/.bin/gh-pages -d dist 
         
