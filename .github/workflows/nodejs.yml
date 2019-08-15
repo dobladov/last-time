@@ -14,11 +14,12 @@ jobs:
       with:
         version: 10.x
     - name: npm install, deploy, and test
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         npm install
         npm test
         git config user.email "danieldoblado@gmail.com"
         git config user.name "Daniel Doblado"
-        git remote add origin https://github.com/dobladov/last-time.git
         parcel build --public-url '/last-lime' src/index.html && ./node_modules/.bin/gh-pages -d dist 
         
