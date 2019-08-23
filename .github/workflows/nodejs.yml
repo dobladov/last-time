@@ -26,6 +26,6 @@ jobs:
           ACTION_NAME: "Daniel Doblado"
           ACTION_BRANCH: "gh-pages"
           ACTION_MESSAGE: "Commit to gh-pages"
-          secrets: ["GITHUB_TOKEN"]
+          secrets: ${{ secrets.GITHUB_TOKEN }}
         
         
