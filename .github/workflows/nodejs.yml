@@ -20,13 +20,12 @@ jobs:
     steps:
       - name: Push to gh-pages
         uses: "ludeeus/action-push@master"
-        env: {
+        env:
           ACTION_MAIL: "danieldoblado@gmail.com"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACTION_NAME: "Daniel Doblado"
           ACTION_BRANCH: "gh-pages"
           ACTION_MESSAGE: "Commit to gh-pages"
-        }
         secrets: ["GITHUB_TOKEN"]
         
         
