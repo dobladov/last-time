@@ -20,5 +20,7 @@ jobs:
         cd last-time
         npm install
         parcel build --public-url '/last-lime' src/index.html
+        rm .gitignore
+        git add dist && git commit -m "Initial dist subtree commit"
         git subtree push --prefix dist origin gh-pages
       
