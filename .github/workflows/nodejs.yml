@@ -16,17 +16,13 @@ jobs:
       run: |
         npm install
         parcel build --public-url '/last-lime' src/index.html
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Push to gh-pages
-        uses: "ludeeus/action-push@master"
-        env:
-          ACTION_MAIL: "danieldoblado@gmail.com"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTION_NAME: "Daniel Doblado"
-          ACTION_BRANCH: "gh-pages"
-          ACTION_MESSAGE: "Commit to gh-pages"
-          secrets: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push to gh-pages        
+      run: |
+        git config --global user.email danieldoblado@gmail.com
+        git config --global user.name "Daniel Doblado"
+        cd /github/workspace || exit 1
+        git add .
+        git commit -m "Publis to gh-pages"
+        git push --set-upstream origin gh-pages
         
-        
+      
