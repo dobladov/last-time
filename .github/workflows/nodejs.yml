@@ -17,6 +17,7 @@ jobs:
         npm install
         parcel build --public-url '/last-lime' src/index.html
   publish:
+    runs-on: ubuntu-latest
     steps:
       - name: Push to gh-pages
         uses: "ludeeus/action-push@master"
