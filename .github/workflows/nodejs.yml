@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -14,12 +13,20 @@ jobs:
       with:
         version: 10.x
     - name: npm install, deploy, and test
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         npm install
-        npm test
-        git config user.email "danieldoblado@gmail.com"
-        git config user.name "Daniel Doblado"
-        parcel build --public-url '/last-lime' src/index.html && ./node_modules/.bin/gh-pages -d dist 
+        parcel build --public-url '/last-lime' src/index.html
+  publish:
+    steps:
+      - name: Push to gh-pages
+        uses: "ludeeus/action-push@master"
+        env: {
+          ACTION_MAIL: "danieldoblado@gmail.com"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTION_NAME: "Daniel Doblado"
+          ACTION_BRANCH: "gh-pages"
+          ACTION_MESSAGE: "Commit to gh-pages"
+        }
+        secrets: ["GITHUB_TOKEN"]
+        
         
