@@ -22,7 +22,6 @@ jobs:
         git config --global user.name "Daniel Doblado"
         git clone --depth 1 https://github.com/dobladov/last-time.git
         cd last-time
-        npm
         npm install
         parcel build --public-url '/last-lime' src/index.html
         cd dist
