@@ -19,7 +19,6 @@ jobs:
         git clone --depth 1 https://github.com/dobladov/last-time.git
         cd last-time
         npm install
-        npm i -g gh-pages
         parcel build --public-url '/last-lime' src/index.html
-        gh-pages -d dist
+        git subtree push --prefix dist origin gh-pages
       
