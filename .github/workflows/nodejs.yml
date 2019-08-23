@@ -12,10 +12,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         version: 10.x
-    - name: npm install, deploy, and test
-      run: |
-        npm install
-        parcel build --public-url '/last-lime' src/index.html
     - name: Push to gh-pages      
       run: |
         git config --global user.email danieldoblado@gmail.com
@@ -23,10 +19,7 @@ jobs:
         git clone --depth 1 https://github.com/dobladov/last-time.git
         cd last-time
         npm install
+        npm i -g gh-pages
         parcel build --public-url '/last-lime' src/index.html
-        cd dist
-        git add .
-        git commit -m "Publis to gh-pages"
-        git push --set-upstream origin gh-pages
-        
+        gh-pages -d dist
       
