@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -13,11 +12,16 @@ jobs:
       uses: actions/setup-node@v1
       with:
         version: 10.x
-    - name: npm install, deploy, and test
+    - name: Push to gh-pages      
       run: |
+        git config --global user.email danieldoblado@gmail.com
+        git config --global user.name "Daniel Doblado"
+        git clone --depth 1 https://github.com/dobladov/last-time.git
+        cd last-time
         npm install
-        npm test
-        git config user.email "danieldoblado@gmail.com"
-        git config user.name "Daniel Doblado"
-        parcel build --public-url '/last-lime' src/index.html && gh-pages -d dist 
-        
+        parcel build --public-url '/last-lime' src/index.html
+        rm .gitignore    
+        git remote set-url origin https://github.com/dobladov/last-time.git
+        git add dist && git commit -m "Initial dist subtree commit"
+        git subtree push --prefix dist origin gh-pages
+      
