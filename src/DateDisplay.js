@@ -5,7 +5,8 @@ import { DateTime, Interval } from 'luxon'
 const getIntervalFromNow = (date) => {
   const future = isFuture(date)
   return [
-    Interval.fromDateTimes(future ? DateTime.local() : date, future ? date : DateTime.local()).toDuration(['hours', 'minutes', 'seconds', 'days', 'months', 'years']).toObject(),
+    Interval.fromDateTimes(future ? DateTime.local() : date, future
+      ? date : DateTime.local()).toDuration(['hours', 'minutes', 'seconds', 'days', 'months', 'years']).toObject(),
     future
   ]
 }
