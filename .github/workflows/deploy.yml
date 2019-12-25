@@ -19,8 +19,7 @@ jobs:
         node-version: '12.x' 
     - run: |
         npm install
-        npm install npx
-        npx parcel build --public-url /last-time src/index.html
+        npm run build
         
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
