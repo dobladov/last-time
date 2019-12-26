@@ -3,6 +3,7 @@ import { Component } from 'react'
 import { render } from 'react-dom'
 import { Global, css, jsx } from '@emotion/core'
 import { DateTime } from 'luxon'
+import uuidv4 from 'uuid/v4'
 
 import globalStyles from './globalStyles'
 import DateDisplay from './DateDisplay'
@@ -203,6 +204,7 @@ class App extends Component {
 
   render () {
     const { tasks, showAddDialog } = this.state
+    const { addTask } = this
 
     const orderedTasks = orderTasks(tasks)
     const min = (orderedTasks.length && orderedTasks[0].date.getTime()) || 0
@@ -223,14 +225,47 @@ class App extends Component {
             <div className="buttonsContainer"> 
               <button
                 className="btn"
+                onClick={() => {
+                  const upload = document.createElement('input')
+                  upload.type = 'file'
+                  upload.accept = 'text/json'
+                  upload.click()
+                  upload.addEventListener('change', (e) => {
+                    const file = e.target.files[0]
+                    var reader = new FileReader()
+                    reader.readAsText(file, 'UTF-8')
+                    reader.onload = function (evt) {
+                      const tasks = JSON.parse(evt.target.result) || []
+                      const newTaskWithDates = tasks.map(task => {
+                        task.date = new Date(task.date)
+                        task.id = uuidv4()
+                        return task
+                      })
+                      // console.log(newTaskWithDates)
+                      addTask(newTaskWithDates)
+                    }
+                  })
+                }}
               >
                 <Upload />
                 Import
               </button>
               <button
                 className="btn"
+                onClick={() => {
+                  const exportData = JSON.stringify(orderedTasks)
+                  console.log(exportData)
+                  const link = document.createElement('a')
+                  link.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(exportData))
+                  link.setAttribute('download', `export-${new Date().toISOString()}.txt`)
+                  link.style.display = 'none'
+                  document.body.appendChild(link)
+                  link.click()
+                  document.body.removeChild(link)
+                }}
               >
-                <Download />
+                <Download
+                />
                 Export
               </button>
 
