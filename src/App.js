@@ -67,7 +67,7 @@ const style = css`
   .tasks {
     display: grid;
     grid-gap: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     margin-top: 20px;
   }
 
@@ -90,10 +90,13 @@ const style = css`
         margin: 0;
         display: inline-block;
         font-weight: 400;
+        font-size: 1.8rem;
       }
 
       .taskFulldate {
-        display: inline-block;
+        position: absolute;
+        right: 10px;
+        top: 10px;
         margin-left: 10px;
         font-size: .8rem;
         color: #686868;
@@ -111,13 +114,29 @@ const style = css`
     }
 
     .taskControls {
-      text-align: center;
-      input {
-        margin-right: 5px;
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
 
-        :last-child {
-          margin-right: 0;
+      button {
+        font-size: .8rem;
+
+        svg {
+          margin-right: 5px;
+          height: 17px;
         }
+      }
+
+    }
+
+    .taskDate {
+      display: flex;
+      justify-content: space-around;
+      margin: 10px 0;
+
+      .dateBlock {
+        text-align: center;
+        margin-right: 10px;
       }
     }
 

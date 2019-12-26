@@ -31,8 +31,8 @@ const globalStyles = css`
     color: #8997AE;
 
     &:hover {
-      background-color: #5b626a;
-      color: #fafafa;
+      background-color: #8997AE;
+      color: white;
     }
   }
 
