@@ -60,9 +60,15 @@ const style = css`
     }
   }
 
+  .tasks {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    margin-top: 20px;
+  }
+
   .task {
     border: 1px solid #DCDEE0;
-    margin-top: 20px;
     padding: 20px;
     display: flex;
     justify-content: space-between;
@@ -222,54 +228,57 @@ class App extends Component {
 
           </section>
 
-          {orderedTasks.map(task => (
-            <div key={task.id} className="task">
-              <div className="taskInfo">
-                <div>
-                  <h2>{task.name}</h2>
-                  <span className="taskFulldate">
-                    {DateTime.fromJSDate(task.date).toFormat('yyyy LLL dd')}
-                  </span>
-                </div>
-                <DateDisplay date={task.date} />
-              </div>
-              <div className="taskControls">
-                <button
-                  className="btn"
-                  type="button"
-                  onClick={() => {
-                    const newTasks = tasks.filter(t => t.id !== task.id)
-                    this.setState({ tasks: newTasks }, () => {
-                      localStorage.setItem('tasks', JSON.stringify(newTasks))
-                    })
-                  }}
-                >
-                  <Trash2 />
-                  Delete
-                </button>
-                <button
-                  className="btn"
-                  type="button"
-                  onClick={() => {
-                    const newTasks = tasks.map(t => {
-                      if (t.id === task.id) {
-                        t.date = new Date()
-                      }
-                      return t
-                    })
+          <section className="tasks">
 
-                    this.setState({ tasks: newTasks }, () => {
-                      localStorage.setItem('tasks', JSON.stringify(newTasks))
-                    })
-                  }}
-                >
-                  <Clock />
-                  Update
-                </button>
+            {orderedTasks.map(task => (
+              <div key={task.id} className="task">
+                <div className="taskInfo">
+                  <div>
+                    <h2>{task.name}</h2>
+                    <span className="taskFulldate">
+                      {DateTime.fromJSDate(task.date).toFormat('yyyy LLL dd')}
+                    </span>
+                  </div>
+                  <DateDisplay date={task.date} />
+                </div>
+                <div className="taskControls">
+                  <button
+                    className="btn"
+                    type="button"
+                    onClick={() => {
+                      const newTasks = tasks.filter(t => t.id !== task.id)
+                      this.setState({ tasks: newTasks }, () => {
+                        localStorage.setItem('tasks', JSON.stringify(newTasks))
+                      })
+                    }}
+                    >
+                    <Trash2 />
+                    Delete
+                  </button>
+                  <button
+                    className="btn"
+                    type="button"
+                    onClick={() => {
+                      const newTasks = tasks.map(t => {
+                        if (t.id === task.id) {
+                          t.date = new Date()
+                        }
+                        return t
+                      })
+                      
+                      this.setState({ tasks: newTasks }, () => {
+                        localStorage.setItem('tasks', JSON.stringify(newTasks))
+                      })
+                    }}
+                    >
+                    <Clock />
+                    Update
+                  </button>
+                </div>
+                <div className="taksPercentage" style={{ width: `${calculatePercentage(task.date.getTime(), min, max, 100, 0)}%` }} />
               </div>
-              <div className="taksPercentage" style={{ width: `${calculatePercentage(task.date.getTime(), min, max, 100, 0)}%` }} />
-            </div>
-          ))}
+            ))}
+          </section>
         </main>
       </div>
     )
