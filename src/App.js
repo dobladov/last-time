@@ -12,14 +12,19 @@ import { Plus, Upload, Download, Clock, Trash2, Minus } from 'react-feather'
 
 import logo from './assets/icons/favicon-32x32.png'
 
-
 const style = css`
   main {
     padding: 20px;
   }
 
-  .controls {
+  .logoContaienr {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .controls {
     justify-content: space-between;
     align-items: center;
 
@@ -28,6 +33,30 @@ const style = css`
       margin: 0;
       font-weight: 300;
       font-size: 2rem;
+    }
+
+    .buttonsContainer {
+      flex: 1;
+      display: flex;
+      justify-content: space-evenly;
+
+      & > button {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  @media (min-width: 576px) {
+    .logoContaienr {
+      margin-bottom: 0;
+    }
+    
+    .controls {
+      display: flex;
+
+      .buttonsContainer {
+        justify-content: end;
+      }
     }
   }
 
@@ -133,7 +162,7 @@ class App extends Component {
     })
   }
 
-  setShowAddDialog(bool) {
+  setShowAddDialog (bool) {
     this.setState({ showAddDialog: bool })
   }
 
@@ -150,31 +179,13 @@ class App extends Component {
         <main>
 
           <section className="controls">
-            <div className="addWrapper">
-              <button
-                className="btn important"
-                onClick={() => {
-                  this.setShowAddDialog(!showAddDialog)
-                }}
-              >
-                {showAddDialog ? <Minus /> : <Plus />}
-                <span>{showAddDialog ? 'Hide' : 'New'}</span>
-              </button>
-
-              {showAddDialog && (
-                <AddDialog
-                  addTask={this.addTask}
-                  orderedTasks={orderedTasks}
-                  setShowAddDialog={this.setShowAddDialog}
-                />
-              )}
-            </div>
-            <div>
+            <div className="logoContaienr">
               <img src={logo} alt="Logo"/>
               &nbsp;
               <h1>Last Time</h1>
             </div>
-            <div>
+
+            <div className="buttonsContainer"> 
               <button
                 className="btn"
               >
@@ -187,7 +198,28 @@ class App extends Component {
                 <Download />
                 Export
               </button>
+
+              <div className="addWrapper">
+                <button
+                  className="btn important"
+                  onClick={() => {
+                    this.setShowAddDialog(!showAddDialog)
+                  }}
+                >
+                  {showAddDialog ? <Minus /> : <Plus />}
+                  <span>{showAddDialog ? 'Hide' : 'New'}</span>
+                </button>
+
+                {showAddDialog && (
+                  <AddDialog
+                    addTask={this.addTask}
+                    orderedTasks={orderedTasks}
+                    setShowAddDialog={this.setShowAddDialog}
+                  />
+                )}
+              </div>
             </div>
+
           </section>
 
           {orderedTasks.map(task => (

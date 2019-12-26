@@ -14,7 +14,7 @@ const style = css`
   position: absolute;
   z-index: 1;
   top: calc(100% + 10px);
-  left: 10px;
+  right: 0;
 
   label {
     padding-bottom: 10px;
@@ -31,7 +31,7 @@ const style = css`
     content: "";
     width: 0;
     height: 0;
-    top: -11px;
+    right: -11px;
     left: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
@@ -43,7 +43,7 @@ const style = css`
     content: "";
     width: 0;
     height: 0;
-    top: -10px;
+    right: -10px;
     left: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
