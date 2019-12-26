@@ -1,5 +1,7 @@
 /** @jsx jsx */
 import uuidv4 from 'uuid/v4'
+import PropTypes from 'prop-types'
+
 import { css, jsx } from '@emotion/core'
 import { Plus } from 'react-feather'
 
@@ -107,6 +109,12 @@ const AddDialog = ({ orderedTasks, addTask, setShowAddDialog }) => {
       </div>
     </form>
   )
+}
+
+AddDialog.propTypes = {
+  orderedTasks: PropTypes.arrayOf(PropTypes.any).isRequired,
+  addTask: PropTypes.func.isRequired,
+  setShowAddDialog: PropTypes.func.isRequired
 }
 
 export default AddDialog

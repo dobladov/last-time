@@ -222,7 +222,7 @@ class App extends Component {
               <h1>Last Time</h1>
             </div>
 
-            <div className="buttonsContainer"> 
+            <div className="buttonsContainer">
               <button
                 className="btn"
                 onClick={() => {
@@ -241,7 +241,6 @@ class App extends Component {
                         task.id = uuidv4()
                         return task
                       })
-                      // console.log(newTaskWithDates)
                       addTask(newTaskWithDates)
                     }
                   })
@@ -315,7 +314,7 @@ class App extends Component {
                         localStorage.setItem('tasks', JSON.stringify(newTasks))
                       })
                     }}
-                    >
+                  >
                     <Trash2 />
                     Delete
                   </button>
@@ -329,12 +328,12 @@ class App extends Component {
                         }
                         return t
                       })
-                      
+
                       this.setState({ tasks: newTasks }, () => {
                         localStorage.setItem('tasks', JSON.stringify(newTasks))
                       })
                     }}
-                    >
+                  >
                     <Clock />
                     Update
                   </button>
