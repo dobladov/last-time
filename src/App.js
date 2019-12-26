@@ -10,7 +10,7 @@ import AddDialog from './AddDialog'
 
 import { Plus, Upload, Download, Clock, Trash2, Minus } from 'react-feather'
 
-import logo from './assets/icons/favicon-32x32.png'
+import logo from './assets/logo.svg'
 
 const style = css`
   main {
@@ -22,6 +22,12 @@ const style = css`
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
+
+    img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
   }
 
   .controls {
@@ -59,7 +65,7 @@ const style = css`
       display: flex;
 
       .buttonsContainer {
-        justify-content: end;
+        justify-content: flex-end;
       }
     }
   }

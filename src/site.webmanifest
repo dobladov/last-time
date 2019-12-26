@@ -10,17 +10,27 @@
     "lang": "en-US",
     "icons": [
         {
+            "src": "/assets/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
             "src": "/assets/icons/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/assets/icons/android-chrome-256x256.png",
-            "sizes": "256x256",
+            "src": "/assets/icons/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/icons/favicon-16x16.png",
+            "sizes": "16x16",
             "type": "image/png"
         }
     ],
-    "theme_color": "#00FA9A",
-    "background_color": "#00FA9A",
+    "theme_color": "#283744",
+    "background_color": "#F1F3F6",
     "display": "standalone"
 }
