@@ -1,20 +1,35 @@
 /** @jsx jsx */
-import { Component } from 'react'
+import { Component, useState } from 'react'
 import { render } from 'react-dom'
-import uuidv4 from 'uuid/v4'
 import { Global, css, jsx } from '@emotion/core'
 import { DateTime } from 'luxon'
 
 import globalStyles from './globalStyles'
 import DateDisplay from './DateDisplay'
+import AddDialog from './AddDialog'
+
+import { Plus, Upload, Download, Clock, Trash2 } from 'react-feather'
 
 const style = css`
   main {
     padding: 20px;
   }
 
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & h1 {
+      display: inline-block;
+      margin: 0;
+      font-weight: 300;
+      font-size: 2rem;
+    }
+  }
+
   .task {
-    border: 2px solid #5b626a;
+    border: 1px solid #DCDEE0;
     margin-top: 20px;
     padding: 20px;
     display: flex;
@@ -22,6 +37,7 @@ const style = css`
     flex-wrap: wrap;
     align-items: center;
     position: relative;
+    background: white;
 
     .taskInfo {
       flex: 2 400px;
@@ -31,6 +47,7 @@ const style = css`
         padding: 0;
         margin: 0;
         display: inline-block;
+        font-weight: 400;
       }
 
       .taskFulldate {
@@ -52,8 +69,6 @@ const style = css`
     }
 
     .taskControls {
-      flex: 1 200px;
-
       text-align: center;
       input {
         margin-right: 5px;
@@ -68,14 +83,10 @@ const style = css`
       position: absolute;
       width: 100%;
       height: 5px;
-      /* border-top: 1px solid #5b626a; */
-      background-color: mediumspringgreen;
+      background: rgba(0, 0, 0, 0) linear-gradient(rgb(49, 182, 169) 0%, rgb(72, 190, 178) 100%) repeat scroll 0% 0%;
+
       left: 0;
       bottom: 0;
-    }
-
-    @media (min-width: 768px) {
-
     }
   }
 
@@ -115,12 +126,22 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      showAddDialog: false,
       tasks: getTasks()
     }
+    this.addTask = this.addTask.bind(this)
+  }
+
+  addTask (task) {
+    const { tasks } = this.state
+    const newTasks = tasks.concat(task)
+    this.setState({ tasks: newTasks }, () => {
+      localStorage.setItem('tasks', JSON.stringify(newTasks))
+    })
   }
 
   render () {
-    const { tasks } = this.state
+    const { tasks, showAddDialog } = this.state
 
     const orderedTasks = orderTasks(tasks)
     const min = (orderedTasks.length && orderedTasks[0].date.getTime()) || 0
@@ -130,49 +151,41 @@ class App extends Component {
       <div className="wrapper" css={style}>
         <Global styles={globalStyles} />
         <main>
-          <form className="add" onSubmit={(e) => {
-            e.preventDefault()
-            const formData = new FormData(e.target)
-            const name = formData.get('taskName')
-            const date = formData.get('date')
-            const time = formData.get('time')
 
-            const task = {
-              id: uuidv4(),
-              name: name
-            }
+          <section className="controls">
+            <button
+              className="btn important"
+              onClick={() => {
+                this.setState({ showAddDialog: !showAddDialog })
+              }}
+            >
+              <Plus />
+              Add
+            </button>
+            <h1>Last Time</h1>
+            <div>
+              <button
+                className="btn"
+              >
+                <Upload />
+                Import
+              </button>
+              <button
+                className="btn"
+              >
+                <Download />
+                Export
+              </button>
+            </div>
+          </section>
 
-            if (date && time) {
-              const [year, month, day] = date.split('-')
-              const [hours, minutes] = time.split(':')
-              task.date = new Date(year, month, day, hours, minutes)
-            } else if (!date && time) {
-              const date = new Date()
-              const [hours, minutes] = time.split(':')
-              task.date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes)
-            } else if (date && !time) {
-              task.date = new Date(date)
-            } else {
-              task.date = new Date()
-            }
+          {showAddDialog && (
+            <AddDialog
+              addTask={this.addTask}
+              orderedTasks={orderedTasks}
+            />
+          )}
 
-            e.target.reset()
-            const newTasks = tasks.concat(task)
-            this.setState({ tasks: newTasks }, () => {
-              localStorage.setItem('tasks', JSON.stringify(newTasks))
-            })
-          }}>
-            <input required placeholder="Task Name" list="tasksList" id="taskName" name="taskName" />
-
-            <datalist id="tasksList">
-              {orderedTasks.map(task => <option key={task.id} value={task.name} />)}
-            </datalist>
-
-            <input type="date" name="date" id="date"/>
-            <input type="time" name="time" id="time"/>
-
-            <input type="submit" value="Add"/>
-          </form>
           {orderedTasks.map(task => (
             <div key={task.id} className="task">
               <div className="taskInfo">
@@ -185,19 +198,22 @@ class App extends Component {
                 <DateDisplay date={task.date} />
               </div>
               <div className="taskControls">
-                <input
+                <button
+                  className="btn"
                   type="button"
-                  value="Delete"
                   onClick={() => {
                     const newTasks = tasks.filter(t => t.id !== task.id)
                     this.setState({ tasks: newTasks }, () => {
                       localStorage.setItem('tasks', JSON.stringify(newTasks))
                     })
                   }}
-                />
-                <input
+                >
+                  <Trash2 />
+                  Delete
+                </button>
+                <button
+                  className="btn"
                   type="button"
-                  value="Update"
                   onClick={() => {
                     const newTasks = tasks.map(t => {
                       if (t.id === task.id) {
@@ -210,7 +226,10 @@ class App extends Component {
                       localStorage.setItem('tasks', JSON.stringify(newTasks))
                     })
                   }}
-                />
+                >
+                  <Clock />
+                  Update
+                </button>
               </div>
               <div className="taksPercentage" style={{ width: `${calculatePercentage(task.date.getTime(), min, max, 100, 0)}%` }} />
             </div>
