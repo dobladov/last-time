@@ -1,8 +1,8 @@
-# Last Time ![favicon-32x32](https://user-images.githubusercontent.com/1938043/62411508-1cb85180-b5f4-11e9-9771-cba626af4458.png)
+# Last Time ![favicon-32x32](https://raw.githubusercontent.com/dobladov/last-time/master/src/assets/icons/favicon-32x32.png)
 
 Measure task by the last time you did them.
 
-![Screen Shot 2019-08-02 at 23 24 33](https://user-images.githubusercontent.com/1938043/62399611-b17f6880-b57c-11e9-8285-8ae594b96a06.png)
+![Screen Shot 2019-12-26 at 19 11 00-fullpage](https://user-images.githubusercontent.com/1938043/71486214-8b9d7d80-2815-11ea-8ba8-c110689281bc.png)
 
 ## Set Up
 

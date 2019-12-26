@@ -47,8 +47,13 @@ class DateDisplay extends React.Component {
 
     return (
       <span className="taskDate">
-        {Object.keys(dateObj).map(key => (
-          dateObj[key] > 0 && <span className={future ? 'future' : ''} key={key} >{key.charAt(0).toUpperCase() + key.slice(1)} {key === 'seconds' ? Math.floor(dateObj[key]) : dateObj[key]}</span>
+        {Object.entries(dateObj).map(([key, value]) => (
+          (value !== 0) && (
+            <div key={key} className={`dateBlock${future ? ' future' : ''}`}>
+              <div>{Math.floor(value)}</div>
+              <div>{key.charAt(0).toUpperCase() + key.slice(1)}</div>
+            </div>
+          )
         ))}
       </span>
     )
