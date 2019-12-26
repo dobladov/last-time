@@ -47,6 +47,10 @@ const style = css`
   }
 
   @media (min-width: 576px) {
+    main {
+      padding: 40px;
+    }
+
     .logoContaienr {
       margin-bottom: 0;
     }

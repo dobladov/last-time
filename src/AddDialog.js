@@ -31,8 +31,8 @@ const style = css`
     content: "";
     width: 0;
     height: 0;
-    right: -11px;
-    left: 0;
+    top: -11px;
+    right: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid #DCDEE0;
@@ -43,8 +43,8 @@ const style = css`
     content: "";
     width: 0;
     height: 0;
-    right: -10px;
-    left: 0;
+    top: -10px;
+    right: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid white;
