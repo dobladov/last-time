@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Component, useState } from 'react'
+import { Component } from 'react'
 import { render } from 'react-dom'
 import { Global, css, jsx } from '@emotion/core'
 import { DateTime } from 'luxon'
@@ -8,7 +8,10 @@ import globalStyles from './globalStyles'
 import DateDisplay from './DateDisplay'
 import AddDialog from './AddDialog'
 
-import { Plus, Upload, Download, Clock, Trash2 } from 'react-feather'
+import { Plus, Upload, Download, Clock, Trash2, Minus } from 'react-feather'
+
+import logo from './assets/icons/favicon-32x32.png'
+
 
 const style = css`
   main {
@@ -90,19 +93,8 @@ const style = css`
     }
   }
 
-  .add {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
-    input {
-      flex: 1 200px;
-      margin-bottom: 5px;
-
-      :last-child {
-        margin-right: 0;
-      }
-    }
+  .addWrapper {
+    position: relative;
   }
 `
 
@@ -130,6 +122,7 @@ class App extends Component {
       tasks: getTasks()
     }
     this.addTask = this.addTask.bind(this)
+    this.setShowAddDialog = this.setShowAddDialog.bind(this)
   }
 
   addTask (task) {
@@ -138,6 +131,10 @@ class App extends Component {
     this.setState({ tasks: newTasks }, () => {
       localStorage.setItem('tasks', JSON.stringify(newTasks))
     })
+  }
+
+  setShowAddDialog(bool) {
+    this.setState({ showAddDialog: bool })
   }
 
   render () {
@@ -153,16 +150,30 @@ class App extends Component {
         <main>
 
           <section className="controls">
-            <button
-              className="btn important"
-              onClick={() => {
-                this.setState({ showAddDialog: !showAddDialog })
-              }}
-            >
-              <Plus />
-              Add
-            </button>
-            <h1>Last Time</h1>
+            <div className="addWrapper">
+              <button
+                className="btn important"
+                onClick={() => {
+                  this.setShowAddDialog(!showAddDialog)
+                }}
+              >
+                {showAddDialog ? <Minus /> : <Plus />}
+                <span>{showAddDialog ? 'Hide' : 'New'}</span>
+              </button>
+
+              {showAddDialog && (
+                <AddDialog
+                  addTask={this.addTask}
+                  orderedTasks={orderedTasks}
+                  setShowAddDialog={this.setShowAddDialog}
+                />
+              )}
+            </div>
+            <div>
+              <img src={logo} alt="Logo"/>
+              &nbsp;
+              <h1>Last Time</h1>
+            </div>
             <div>
               <button
                 className="btn"
@@ -178,13 +189,6 @@ class App extends Component {
               </button>
             </div>
           </section>
-
-          {showAddDialog && (
-            <AddDialog
-              addTask={this.addTask}
-              orderedTasks={orderedTasks}
-            />
-          )}
 
           {orderedTasks.map(task => (
             <div key={task.id} className="task">
