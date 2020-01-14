@@ -20,6 +20,7 @@ jobs:
     - run: |
         npm install
         npm run build
+        echo "last-time.odyssey.codes" > public/CNAME
         
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
